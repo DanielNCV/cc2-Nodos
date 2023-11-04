@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+template <class T>
+class nodo {
+public:
+    T valor;
+    nodo<T>* next;
+    nodo(T v, nodo<T>* n = NULL) {
+        valor = v;
+        next = n;
+    }
+};
+template<class T>
+class cola {
+    nodo<T>* head, * tail;
+public:
+    void Push(T valor);
+    bool Pop(T& valor);
+    void Print();
+    bool Empty();
+    ~
+    cola() {
+        head = NULL;
+        tail = NULL;
+    }
+};
+
+template<class T>
+void cola<T>::Push(T valor) {
+    if (!head) {
+        head = new nodo<T>(valor);
+        tail = head;
+    }
+    else {
+        tail->next = new nodo<T>(valor);
+        tail = tail->next;
+    }
+}
+
+template<class T>
+void cola<T>::Print() {
+    nodo<int>* p = head;
+    while (p) {
+        cout << p->valor << " ";
+        p = p->next;
+    }
+    cout << endl;
+
+}
+
+template<class T>
+bool cola<T>::Pop(T& valor) {
+    bool sacar = false;
+    valor = 0;
+    if (head) {
+        valor = head->valor;
+        sacar = true;
+        nodo<T>* tmp = head;
+        head = head->next;
+        delete tmp;
+    }
+    return sacar;
+}
+
+template<class T>
+bool cola<T>::Empty() {
+    return head;
+}
+int main() {
+    cola<int> colita;
+    for (int i = 0; i <= 10; i++) {
+        colita.Push(i);
+    }
+
+    int a = 0;
+    colita.Print();
+    colita.Pop(a);
+    colita.Print();
+    for (int i = 0; i <= 8; i++) {
+        colita.Pop(a);
+        colita.Print();
+    }
+    cout<< colita.Empty();
+}
